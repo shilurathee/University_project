@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+<div class="admin-dashboard-container">
+    <!-- Header Section -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <h1 class="dashboard-title">Admin Dashboard</h1>
+            <p class="dashboard-subtitle">Manage the university system from one place</p>
+        </div>
+    </div>
+
+    <!-- Main Content with Two-Column Layout -->
+    <div class="dashboard-main-layout">
+        
+        <!-- Left Side: Admin Action Cards -->
+        <div class="dashboard-cards-section">
+            <h3 class="section-heading">Admin Functions</h3>
+            <div class="admin-cards-grid">
+                <a href="{{ url_for('view_students') }}" class="admin-card">
+                    <div class="card-icon">👥</div>
+                    <h4>Manage Students</h4>
+                    <p>Add, view, and remove student records</p>
+                </a>
+
+                <a href="{{ url_for('view_teachers') }}" class="admin-card">
+                    <div class="card-icon">🎓</div>
+                    <h4>Manage Teachers</h4>
+                    <p>Add, view, and remove teacher records</p>
+                </a>
+
+                <a href="{{ url_for('view_courses') }}" class="admin-card">
+                    <div class="card-icon">📚</div>
+                    <h4>Manage Courses</h4>
+                    <p>Create courses and assign them to teachers</p>
+                </a>
+
+                <a href="{{ url_for('view_registrations') }}" class="admin-card">
+                    <div class="card-icon">📝</div>
+                    <h4>Manage Registrations</h4>
+                    <p>Register students into courses</p>
+                </a>
+
+                <a href="{{ url_for('view_grade_cutoffs') }}" class="admin-card">
+                    <div class="card-icon">📊</div>
+                    <h4>Manage Grade Cutoffs</h4>
+                    <p>Define grade boundaries</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side: Statistics Table -->
+        <div class="statistics-section">
+            <h3 class="section-heading">System Statistics</h3>
+            <div class="stats-table-container">
+                <table class="stats-table">
+                    <thead>
+                        <tr>
+                            <th>Entity</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="stat-row" style="animation-delay: 0.1s">
+                            <td class="stat-label">
+                                <span class="stat-icon">👥</span>
+                                Students
+                            </td>
+                            <td class="stat-number">{{ total_students }}</td>
+                        </tr>
+                        <tr class="stat-row" style="animation-delay: 0.2s">
+                            <td class="stat-label">
+                                <span class="stat-icon">🎓</span>
+                                Teachers
+                            </td>
+                            <td class="stat-number">{{ total_teachers }}</td>
+                        </tr>
+                        <tr class="stat-row" style="animation-delay: 0.3s">
+                            <td class="stat-label">
+                                <span class="stat-icon">📚</span>
+                                Courses
+                            </td>
+                            <td class="stat-number">{{ total_courses }}</td>
+                        </tr>
+                        <tr class="stat-row" style="animation-delay: 0.4s">
+                            <td class="stat-label">
+                                <span class="stat-icon">📝</span>
+                                Registrations
+                            </td>
+                            <td class="stat-number">{{ total_registrations }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Student Dashboard</h2>
+<p class="section-subtitle">View your courses, marks, and final grades.</p>
+
+<div class="dashboard-grid">
+    <a href="{{ url_for('student_my_courses') }}" class="dashboard-card">
+        <h4>My Courses</h4>
+        <p>See all courses you are registered in.</p>
+    </a>
+
+    <a href="{{ url_for('student_my_results') }}" class="dashboard-card">
+        <h4>My Results</h4>
+        <p>See your total marks and final grades.</p>
+    </a>
+</div>
+{% endblock %}

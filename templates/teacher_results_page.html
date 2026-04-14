@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}View Results{% endblock %}
+
+{% block content %}
+<h2 class="section-title">View Results</h2>
+<p class="section-subtitle">Select a course to view student results and grades.</p>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Course Code</th>
+        <th>Course Name</th>
+        <th>Credits</th>
+        <th>Department</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for course in courses %}
+    <tr>
+        <td>{{ course.course_id }}</td>
+        <td>{{ course.course_code }}</td>
+        <td>{{ course.course_name }}</td>
+        <td>{{ course.credits }}</td>
+        <td>{{ course.department }}</td>
+        <td>
+            <a href="{{ url_for('teacher_results', course_id=course.course_id) }}" class="action-link">Results</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if not courses %}
+<p>No courses assigned yet.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Registration{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Add Registration</h2>
+<p class="section-subtitle">Register a student into a course.</p>
+
+<form method="POST">
+    <label>Student</label>
+    <select name="student_id" required>
+        <option value="">-- Select Student --</option>
+        {% for student in students %}
+            <option value="{{ student.student_id }}">
+                {{ student.student_name }} ({{ student.usn }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Course</label>
+    <select name="course_id" required>
+        <option value="">-- Select Course --</option>
+        {% for course in courses %}
+            <option value="{{ course.course_id }}">
+                {{ course.course_name }} ({{ course.course_code }})
+            </option>
+        {% endfor %}
+    </select>
+
+    <label>Semester</label>
+    <input type="number" name="semester" min="1" max="8" required>
+
+    <label>Academic Year</label>
+    <input type="text" name="academic_year" placeholder="2025-26" required>
+
+    <label>Registration Date</label>
+    <input type="date" name="registration_date" required>
+
+    <button type="submit">Add Registration</button>
+</form>
+{% endblock %}

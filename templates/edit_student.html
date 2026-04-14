@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Edit Student{% endblock %}
+{% block content %}
+
+<h2 class="section-title">Edit Student</h2>
+
+<form method="POST">
+    <label>USN</label>
+    <input type="text" name="usn" value="{{ student.usn }}" required><br>
+
+    <label>Name</label>
+    <input type="text" name="student_name" value="{{ student.student_name }}" required><br>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ student.email }}"><br>
+
+    <label>Department</label>
+    <input type="text" name="department" value="{{ student.department }}"><br>
+
+    <label>Semester</label>
+    <input type="number" name="semester" value="{{ student.semester }}"><br>
+
+    <button type="submit">Update Student</button>
+</form>
+{% endblock %}

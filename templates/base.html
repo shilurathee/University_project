@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}University Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body{% if request.endpoint == 'login' %} class="login-page"{% endif %}>
+    <div class="page-container">
+        {% if request.endpoint != 'login' %}
+        <nav class="navbar">
+            <div>
+                <h1 class="logo">University Management System</h1>
+                <p class="subtitle">Student Registration and Course Performance Portal</p>
+            </div>
+
+            {% if session.get('username') %}
+            <div class="user-box">
+                <span>
+                    Logged in as <strong>{{ session['username'] }}</strong>
+                    <span class="role-badge">{{ session['role'] }}</span>
+                </span>
+                <a class="logout-btn" href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <main class="content-card">
+            {% set back_routes = {
+                'view_students': 'admin_dashboard',
+                'view_teachers': 'admin_dashboard',
+                'view_courses': 'admin_dashboard',
+                'view_registrations': 'admin_dashboard',
+                'view_grade_cutoffs': 'admin_dashboard',
+                'edit_student': 'view_students',
+                'add_student': 'view_students',
+                'edit_teacher': 'view_teachers',
+                'add_teacher': 'view_teachers',
+                'edit_course': 'view_courses',
+                'add_course': 'view_courses',
+                'edit_registration': 'view_registrations',
+                'add_registration': 'view_registrations',
+                'edit_grade_cutoff': 'view_grade_cutoffs',
+                'add_grade_cutoff': 'view_grade_cutoffs',
+                'teacher_dashboard': 'login',
+                'teacher_courses': 'teacher_dashboard',
+                'teacher_assessments': 'teacher_dashboard',
+                'teacher_assessments_page': 'teacher_dashboard',
+                'teacher_marks': 'teacher_dashboard',
+                'teacher_marks_page': 'teacher_dashboard',
+                'teacher_results': 'teacher_dashboard',
+                'teacher_results_page': 'teacher_dashboard',
+                'student_dashboard': 'login',
+                'student_my_courses': 'student_dashboard',
+                'student_my_results': 'student_dashboard',
+                'admin_dashboard': 'login'
+            } %}
+            {% if request.endpoint not in ['login'] and request.endpoint in back_routes %}
+            <a href="{{ url_for(back_routes[request.endpoint]) }}" style="display:inline-block; margin-bottom:16px; font-size:14px; color:#60a5fa; text-decoration:none;">← Back</a>
+            {% endif %}
+            {% block content %}{% endblock %}
+
+        </main>
+    </div>
+
+    <!-- Auto-hide flash messages after 3 seconds -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(message => {
+                // Show for 3 seconds (3000 milliseconds)
+                setTimeout(function() {
+                    message.classList.add('fade-out');
+                    
+                    // Remove from DOM after fade-out animation completes (400ms)
+                    setTimeout(function() {
+                        message.remove();
+                    }, 400);
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>

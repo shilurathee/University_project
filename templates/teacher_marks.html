@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Marks{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Enter Marks</h2>
+<p class="section-subtitle">Course: {{ course.course_name }} ({{ course.course_code }})</p>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Assessment</th>
+        <th>Type</th>
+        <th>Action</th>
+    </tr>
+    {% for assessment in assessments %}
+    <tr>
+        <td>{{ assessment.assessment_id }}</td>
+        <td>{{ assessment.assessment_name }}</td>
+        <td>{{ assessment.assessment_type }}</td>
+        <td>
+            <a href="{{ url_for('enter_marks', course_id=course.course_id, assessment_id=assessment.assessment_id) }}">
+                Enter Marks
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}My Courses{% endblock %}
+
+{% block content %}
+<h2 class="section-title">My Courses</h2>
+<p class="section-subtitle">Courses you are currently registered in.</p>
+
+<table>
+    <tr>
+        <th>Course Name</th>
+        <th>Course Code</th>
+        <th>Credits</th>
+        <th>Semester</th>
+        <th>Academic Year</th>
+    </tr>
+    {% for row in courses %}
+    <tr>
+        <td>{{ row.course_name }}</td>
+        <td>{{ row.course_code }}</td>
+        <td>{{ row.credits }}</td>
+        <td>{{ row.semester }}</td>
+        <td>{{ row.academic_year }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

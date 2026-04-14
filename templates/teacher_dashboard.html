@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Teacher Dashboard</h2>
+<p class="section-subtitle">Manage your assigned courses, assessments, and marks.</p>
+
+<div class="dashboard-grid">
+    <a href="{{ url_for('teacher_courses') }}" class="dashboard-card">
+        <h4>My Courses</h4>
+        <p>View the courses assigned to you.</p>
+    </a>
+
+    <a href="{{ url_for('teacher_assessments_page') }}" class="dashboard-card">
+        <h4>Assessments</h4>
+        <p>Add and manage assessments for your courses.</p>
+    </a>
+
+    <a href="{{ url_for('teacher_marks_page') }}" class="dashboard-card">
+        <h4>Enter Marks</h4>
+        <p>Record student marks for each assessment.</p>
+    </a>
+
+    <a href="{{ url_for('teacher_results_page') }}" class="dashboard-card">
+        <h4>View Results</h4>
+        <p>See total marks and grades of students in your courses.</p>
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Enter Marks{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Enter Marks</h2>
+<p class="section-subtitle">
+    {{ course.course_name }} - {{ assessment.assessment_name }}
+    (Max: {{ assessment.max_marks }}, Weightage: {{ assessment.weightage }})
+</p>
+
+<form method="POST">
+    <table>
+        <tr>
+            <th>Registration ID</th>
+            <th>Student Name</th>
+            <th>USN</th>
+            <th>Marks</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.registration_id }}</td>
+            <td>{{ student.student_name }}</td>
+            <td>{{ student.usn }}</td>
+            <td>
+                <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="{{ assessment.max_marks }}"
+                    name="marks_{{ student.registration_id }}"
+                    value="{{ student.obtained_marks if student.obtained_marks is not none else '' }}">
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <button type="submit">Save Marks</button>
+</form>
+{% endblock %}
