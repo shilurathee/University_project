@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from db import get_db_connection
-from dropout_model import get_student_features
+
 
 
 app = Flask(__name__)

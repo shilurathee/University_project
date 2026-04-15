@@ -1,0 +1,152 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:8px 0;font-family:var(--font-sans)}
+.tbl{border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);margin-bottom:14px;overflow:hidden}
+.tbl-head{padding:8px 14px;display:flex;align-items:center;gap:10px}
+.tbl-name{font-size:14px;font-weight:500;color:var(--color-text-primary)}
+.tbl-desc{font-size:11px;color:var(--color-text-secondary)}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;font-weight:500;color:var(--color-text-secondary);padding:5px 14px;text-align:left;border-top:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+td{font-size:12px;padding:5px 14px;border-top:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);font-family:var(--font-mono)}
+tr:last-child td{border-bottom:none}
+.pk{background:var(--color-background-warning);color:var(--color-text-warning);font-size:10px;padding:1px 5px;border-radius:3px;font-family:var(--font-sans);font-weight:500}
+.fk{background:var(--color-background-info);color:var(--color-text-info);font-size:10px;padding:1px 5px;border-radius:3px;font-family:var(--font-sans);font-weight:500}
+.uq{background:var(--color-background-success);color:var(--color-text-success);font-size:10px;padding:1px 5px;border-radius:3px;font-family:var(--font-sans);font-weight:500}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+</style>
+<div class="wrap">
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+  <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--color-text-secondary)"><span class="pk">PK</span> Primary key</span>
+  <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--color-text-secondary)"><span class="fk">FK</span> Foreign key</span>
+  <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--color-text-secondary)"><span class="uq">UQ</span> Unique</span>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#E6F1FB">
+    <div class="dot" style="background:#185FA5"></div>
+    <span class="tbl-name">users</span>
+    <span class="tbl-desc">Login credentials for all roles</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>user_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px">Unique login identity</td></tr>
+    <tr><td>username</td><td>VARCHAR(50)</td><td><span class="uq">UQ</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">Login username</td></tr>
+    <tr><td>password</td><td>VARCHAR(255)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">Stored password</td></tr>
+    <tr><td>role</td><td>ENUM</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">admin / teacher / student</td></tr>
+    <tr><td>created_at</td><td>TIMESTAMP</td><td>DEFAULT NOW()</td><td style="font-family:var(--font-sans);font-size:12px">Account creation time</td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#E1F5EE">
+    <div class="dot" style="background:#0F6E56"></div>
+    <span class="tbl-name">student</span>
+    <span class="tbl-desc">Student profiles — linked to users</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>student_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>user_id</td><td>INT</td><td><span class="fk">FK</span> <span class="uq">UQ</span></td><td style="font-family:var(--font-sans);font-size:12px">→ users.user_id</td></tr>
+    <tr><td>usn</td><td>VARCHAR(20)</td><td><span class="uq">UQ</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">University Seat Number</td></tr>
+    <tr><td>student_name</td><td>VARCHAR(100)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>email</td><td>VARCHAR(100)</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>department</td><td>VARCHAR(50)</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>semester</td><td>INT</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#E1F5EE">
+    <div class="dot" style="background:#0F6E56"></div>
+    <span class="tbl-name">teacher</span>
+    <span class="tbl-desc">Teacher profiles — linked to users</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>teacher_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>user_id</td><td>INT</td><td><span class="fk">FK</span> <span class="uq">UQ</span></td><td style="font-family:var(--font-sans);font-size:12px">→ users.user_id</td></tr>
+    <tr><td>teacher_name</td><td>VARCHAR(100)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>email</td><td>VARCHAR(100)</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>department</td><td>VARCHAR(50)</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#EEEDFE">
+    <div class="dot" style="background:#534AB7"></div>
+    <span class="tbl-name">course</span>
+    <span class="tbl-desc">Course details with teacher assignment</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>course_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>course_code</td><td>VARCHAR(20)</td><td><span class="uq">UQ</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">e.g. CS301</td></tr>
+    <tr><td>course_name</td><td>VARCHAR(100)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>credits</td><td>INT</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>department</td><td>VARCHAR(50)</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>teacher_id</td><td>INT</td><td><span class="fk">FK</span> NULL allowed</td><td style="font-family:var(--font-sans);font-size:12px">→ teacher.teacher_id</td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#FAEEDA">
+    <div class="dot" style="background:#854F0B"></div>
+    <span class="tbl-name">registration</span>
+    <span class="tbl-desc">Student enrolled in course (junction table)</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>registration_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>student_id</td><td>INT</td><td><span class="fk">FK</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">→ student.student_id</td></tr>
+    <tr><td>course_id</td><td>INT</td><td><span class="fk">FK</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">→ course.course_id</td></tr>
+    <tr><td>semester</td><td>VARCHAR(20)</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>academic_year</td><td>VARCHAR(10)</td><td></td><td style="font-family:var(--font-sans);font-size:12px">e.g. 2024-25</td></tr>
+    <tr><td>registration_date</td><td>DATE</td><td></td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td colspan="4" style="font-family:var(--font-sans);font-size:11px;color:var(--color-text-secondary);padding:4px 14px">UNIQUE (student_id, course_id) — prevents duplicate enrollments</td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#EEEDFE">
+    <div class="dot" style="background:#534AB7"></div>
+    <span class="tbl-name">assessment</span>
+    <span class="tbl-desc">Dynamic assessments per course — no predefined limit</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>assessment_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>course_id</td><td>INT</td><td><span class="fk">FK</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">→ course.course_id</td></tr>
+    <tr><td>assessment_name</td><td>VARCHAR(100)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">e.g. Midterm, Quiz 1</td></tr>
+    <tr><td>assessment_type</td><td>VARCHAR(50)</td><td></td><td style="font-family:var(--font-sans);font-size:12px">exam / assignment / quiz</td></tr>
+    <tr><td>max_marks</td><td>DECIMAL(5,2)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">Total marks possible</td></tr>
+    <tr><td>weightage</td><td>DECIMAL(5,2)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">% contribution to total</td></tr>
+    <tr><td>created_at</td><td>TIMESTAMP</td><td>DEFAULT NOW()</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#FAEEDA">
+    <div class="dot" style="background:#854F0B"></div>
+    <span class="tbl-name">marks</span>
+    <span class="tbl-desc">Marks per student per assessment</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>mark_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>registration_id</td><td>INT</td><td><span class="fk">FK</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">→ registration.registration_id</td></tr>
+    <tr><td>assessment_id</td><td>INT</td><td><span class="fk">FK</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">→ assessment.assessment_id</td></tr>
+    <tr><td>obtained_marks</td><td>DECIMAL(5,2)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td colspan="4" style="font-family:var(--font-sans);font-size:11px;color:var(--color-text-secondary);padding:4px 14px">UNIQUE (registration_id, assessment_id) — one mark per student per assessment</td></tr>
+  </table>
+</div>
+
+<div class="tbl">
+  <div class="tbl-head" style="background:#EAF3DE">
+    <div class="dot" style="background:#3B6D11"></div>
+    <span class="tbl-name">gradecutoff</span>
+    <span class="tbl-desc">Teacher-defined grade boundaries per course</span>
+  </div>
+  <table><tr><th>Column</th><th>Type</th><th>Constraints</th><th>Notes</th></tr>
+    <tr><td>grade_id</td><td>INT</td><td><span class="pk">PK</span> AUTO_INCREMENT</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>course_id</td><td>INT</td><td><span class="fk">FK</span> NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">→ course.course_id</td></tr>
+    <tr><td>grade_name</td><td>VARCHAR(5)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">A, B, C, D, F</td></tr>
+    <tr><td>min_marks</td><td>DECIMAL(5,2)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px"></td></tr>
+    <tr><td>max_marks</td><td>DECIMAL(5,2)</td><td>NOT NULL</td><td style="font-family:var(--font-sans);font-size:12px">No overlap allowed</td></tr>
+  </table>
+</div>
+
+</div>
