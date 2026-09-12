@@ -228,18 +228,6 @@ http://127.0.0.1:5000
 
 ---
 
-## Screenshots
-
-Add screenshots of the interface here.
-
-Example:
-
-Admin Dashboard
-Teacher Dashboard
-Student Dashboard
-Marks Entry Page
-
----
 
 ## Future Improvements
 
@@ -254,6 +242,8 @@ Marks Entry Page
 ## Author
 
 Romansh Rathee
+Aanya Gupta
+Vijval Gupta
 
 
 Database Systems Project
